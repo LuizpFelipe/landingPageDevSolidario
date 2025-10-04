@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Projeto Ronronar</title>
+  <style>
+    :root{
+      --azul:#154c64;
+      --rosa:#d94f6d;
+      --bege:#fff7f0;
+      --cinza:#444;
+      --branco:#fff;
+      --gap:14px; /* gap usado no carrossel */
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+      color:var(--cinza);
+      background:var(--branco);
+      line-height:1.45;
+      scroll-behavior:smooth;
+    }
+
+    /* HEADER */
+    header{
+      background:var(--bege);
+      padding:10px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      position:sticky;
+      top:0;
+      z-index:1200;
+      border-bottom:2px solid var(--rosa);
+      box-shadow:0 2px 6px rgba(0,0,0,0.06);
+    }
+    header img{height:54px; transition:transform .25s}
+    header img:hover{transform:scale(1.04)}
+    nav a{
+      margin:0 8px;
+      text-decoration:none;
+      color:var(--azul);
+      font-weight:600;
+      font-size:14px;
+      position:relative;
+    }
+    nav a::after{
+      content:"";
+      position:absolute; left:0; bottom:-6px; width:0; height:2px; background:var(--rosa);
+      transition:width .22s;
+    }
+    nav a:hover{ color:var(--rosa) }
+    nav a:hover::after{ width:100% }
+
+    /* HERO */
+    .hero{
+      text-align:center;
+      padding:60px 18px 36px;
+      background:linear-gradient(180deg,var(--bege),#fff);
+      animation:fadeIn .9s ease;
+    }
+    .hero h2{
+      font-size:30px; margin:0 0 8px; color:var(--rosa);
+    }
+    .hero p{
+      margin:0 auto 14px; max-width:680px; font-size:15px; color: #5a5a5a;
+    }
+    .btn{
+      display:inline-block; padding:10px 20px; background:var(--rosa); color:#fff;
+      border-radius:30px; text-decoration:none; font-weight:700; box-shadow:0 6px 16px rgba(217,79,109,0.18);
+      transition:transform .18s, background .18s;
+    }
+    .btn:hover{ transform:scale(1.04); background:#b23c55 }
+
+    /* SECTIONS (compactes) */
+    section{ padding:30px 18px; max-width:980px; margin:0 auto; animation:fadeUp .9s ease }
+    section h3{ color:var(--azul); font-size:22px; margin:0 0 10px; text-align:center; }
+    section h3::after{ content:" ❤"; color:var(--rosa); font-size:14px; margin-left:6px }
+    section p, section li{ font-size:15px; color:#4c4c4c }
+
+    /* CARROSSEL */
+    .carousel-wrap{
+      position:relative;
+      margin-top:8px;
+      padding:8px 0;
+    }
+    .carousel{
+      display:flex;
+      gap:var(--gap);
+      overflow:hidden;
+      scroll-behavior:smooth;
+      padding-bottom:6px;
+    }
+    .carousel-track{
+      display:flex;
+      transition:transform .5s ease;
+      will-change:transform;
+    }
+    .card{
+      flex:0 0 auto;
+      border-radius:12px;
+      overflow:hidden;
+      background:#fff;
+      box-shadow:0 6px 18px rgba(0,0,0,0.09);
+      transition:transform .25s, box-shadow .25s;
+    }
+    .card img{
+      display:block; width:100%; height:170px; object-fit:cover;
+    }
+    .card:hover{ transform:translateY(-6px); box-shadow:0 10px 26px rgba(0,0,0,0.15) }
+
+    /* setas */
+    .arrow{
+      position:absolute; top:50%; transform:translateY(-50%);
+      width:40px; height:40px; border-radius:50%; border:none; background:rgba(21,76,100,0.95);
+      color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer;
+      box-shadow:0 6px 16px rgba(0,0,0,0.15); transition:transform .15s, background .15s;
+    }
+    .arrow:hover{ transform:translateY(-50%) scale(1.06) }
+    .arrow[aria-hidden="true"]{ display:none }
+    .prev { left:6px }
+    .next { right:6px }
+
+    /* small screen sizing */
+    @media (max-width:600px){
+      .card img{ height:140px }
+      header img{ height:46px }
+      .hero{ padding:38px 14px 26px }
+      section{ padding:22px 14px }
+      .arrow{ width:36px; height:36px }
+    }
+
+    /* FORM */
+    form{ display:flex; flex-direction:column; gap:10px; margin-top:6px }
+    input, textarea{
+      padding:9px 10px; border-radius:8px; border:1px solid #dcdcdc; font-size:14px;
+    }
+    input:focus, textarea:focus{ outline:none; border-color:var(--rosa) }
+    button[type="submit"]{
+      background:var(--rosa); color:#fff; border:none; padding:10px 14px; border-radius:20px;
+      font-weight:700; cursor:pointer; box-shadow:0 6px 18px rgba(217,79,109,0.16)
+    }
+    button[type="submit"]:hover{ transform:scale(1.03) }
+
+    /* FOOTER */
+    footer{
+      background:var(--bege); padding:18px; text-align:center; border-top:2px solid var(--rosa)
+    }
+    footer img{ height:44px; display:block; margin:6px auto }
+    footer p{ margin:6px 0 0; font-size:14px; color:var(--cinza) }
+
+    /* ANIMAÇÕES */
+    @keyframes fadeIn{ from{opacity:0} to{opacity:1} }
+    @keyframes slideIn{ from{transform:translateY(-18px);opacity:0} to{transform:none;opacity:1} }
+    @keyframes fadeUp{ from{transform:translateY(14px);opacity:0} to{transform:none;opacity:1} }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="image/logo.jpg" alt="Logo Projeto Ronronar">
+    <nav>
+      <a href="#gatinhos">Gatinhos</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#adote">Adote</a>
+      <a href="#voluntario">Voluntário</a>
+      <a href="#ajuda">Ajuda</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Se o amor fosse um som, ele faria ron ron!</h2>
+    <p>Ajude nossos gatinhos a encontrarem lares cheios de amor, carinho e segurança. Doe, adote ou seja voluntário!</p>
+    <a class="btn" href="#gatinhos">Conheça Nossos Gatinhos</a>
+  </section>
+
+  <!-- GALERIA / CARROSSEL -->
+  <section id="gatinhos">
+    <h3>🐱 Nossos Gatinhos</h3>
+    <p>Cada gatinho tem uma história de superação e espera por um lar. Role para ver — ou use as setas.</p>
+
+    <div class="carousel-wrap" aria-hidden="false">
+      <button class="arrow prev" aria-label="Anterior" id="prevBtn">&#10094;</button>
+
+      <div class="carousel" id="carousel">
+        <div class="carousel-track" id="track">
+          <!-- cada .card representa uma foto/gatinho; substitua src -->
+          <div class="card"><img src="image/gato1.jpg" alt="Gatinho 1"></div>
+          <div class="card"><img src="image/gato2.jpg" alt="Gatinho 2"></div>
+          <div class="card"><img src="image/gato3.jpg" alt="Gatinho 3"></div>
+          <div class="card"><img src="image/gato4.jpg" alt="Gatinho 4"></div>
+          <div class="card"><img src="image/gato4.jpg" alt="Gatinho 5"></div>
+        </div>
+      </div>
+
+      <button class="arrow next" aria-label="Próximo" id="nextBtn">&#10095;</button>
+    </div>
+  </section>
+
+  <!-- Sobre + Adote/Voluntário resumidos (compactos) -->
+  <section id="sobre">
+    <h3>Sobre Nós</h3>
+    <p>Somos uma ONG apaixonada por gatos: resgatamos, tratamos e buscamos lares responsáveis. Cada gatinho recebe cuidado veterinário, alimentação e muito amor.</p>
+  </section>
+
+  <section id="adote">
+    <h3>Adote um Felino</h3>
+    <ul>
+      <li>Formulário online</li>
+      <li>Entrevista via WhatsApp</li>
+      <li>Visita ao lar e entrega segura</li>
+    </ul>
+    <p><strong>⚠️ Importante:</strong> adotamos apenas para lares seguros (sem acesso direto à rua e com telas).</p>
+  </section>
+
+  <section id="voluntario">
+    <h3>Seja Voluntário</h3>
+    <p>Ajude com cuidados, abrigo temporário, transporte ou divulgação. Toda ajuda importa!</p>
+  </section>
+
+  <section id="ajuda">
+    <h3>Como Ajudar</h3>
+    <p><strong>PIX:</strong> emergencia.animal@yahoo.com</p>
+    <a class="btn" href="#contato">Quero Ajudar</a>
+  </section>
+
+  <section id="contato">
+    <h3>Fale Conosco</h3>
+    <form id="contactForm" onsubmit="event.preventDefault(); alert('Mensagem simulada: form enviado! (implemente backend para envio real)')">
+      <input type="text" name="nome" placeholder="Seu nome" required>
+      <input type="email" name="email" placeholder="Seu e-mail" required>
+      <textarea name="mensagem" rows="4" placeholder="Sua mensagem" required></textarea>
+      <button type="submit">Enviar</button>
+    </form>
+  </section>
+
+  <footer>
+    <img src="logo.jpg" alt="Logo Projeto Ronronar">
+    <p>© 2025 Projeto Ronronar | WhatsApp: (44) 9950-7577</p>
+  </footer>
+
+  <script>
+    // CARROSSEL: autoplay + setas + pausa no hover + recalcula ao redimensionar
+    (function(){
+      const track = document.getElementById('track');
+      const carousel = document.getElementById('carousel');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const gap = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--gap')) || 14;
+      const cards = Array.from(track.children);
+      let index = 0;
+      let slideWidth = 0;
+      let autoplayId = null;
+      const delay = 4000;
+
+      function calcSizes(){
+        // width of a card (assumes all same)
+        const first = track.querySelector('.card');
+        if (!first) return;
+        const style = getComputedStyle(first);
+        const w = first.getBoundingClientRect().width;
+        slideWidth = Math.round(w + gap);
+        // ensure current position is correct after resize
+        showSlide();
+      }
+
+      function showSlide(){
+        track.style.transform = `translateX(${-index * slideWidth}px)`;
+      }
+
+      function next(){
+        if (index < cards.length - 1) index++;
+        else index = 0;
+        showSlide();
+      }
+      function prev(){
+        if (index > 0) index--;
+        else index = cards.length - 1;
+        showSlide();
+      }
+
+      // autoplay
+      function startAutoplay(){
+        stopAutoplay();
+        autoplayId = setInterval(() => next(), delay);
+      }
+      function stopAutoplay(){
+        if (autoplayId) { clearInterval(autoplayId); autoplayId = null; }
+      }
+
+      // events
+      nextBtn.addEventListener('click', () => { next(); startAutoplay(); });
+      prevBtn.addEventListener('click', () => { prev(); startAutoplay(); });
+
+      // pause on hover
+      carousel.addEventListener('mouseenter', stopAutoplay);
+      carousel.addEventListener('mouseleave', startAutoplay);
+
+      // touch / drag support (simple)
+      let startX = 0, isDown = false;
+      carousel.addEventListener('touchstart', e => {
+        stopAutoplay();
+        startX = e.touches[0].clientX;
+      }, {passive:true});
+      carousel.addEventListener('touchend', e => {
+        const endX = (e.changedTouches && e.changedTouches[0].clientX) || 0;
+        const dist = endX - startX;
+        if (dist < -30) next();
+        else if (dist > 30) prev();
+        startAutoplay();
+      }, {passive:true});
+
+      // recalc on load and resize
+      window.addEventListener('load', () => {
+        calcSizes();
+        startAutoplay();
+      });
+      window.addEventListener('resize', () => {
+        // small delay to wait for layout
+        setTimeout(calcSizes, 100);
+      });
+    })();
+  </script>
+</body>
+</html>
